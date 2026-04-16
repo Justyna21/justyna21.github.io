@@ -18,9 +18,51 @@
       padding: 20px;
       color: #d4c4a8;
       position: relative;
-      overflow-x: hidden;
+overflow-x: hidden;
     }
     
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .petal {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(ellipse at center, #8b3a3a 0%, #5c1f1f 50%, transparent 70%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0.6;
+      animation: fall linear infinite;
+    }
+    
+    .sparkle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle ease-in-out infinite;
+    }
+    
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.8; }
+    }
+
     .container {
       max-width: 500px;
       text-align: center;
@@ -375,6 +417,7 @@
 </head>
 <body>
   <div class="light-burst" id="lightBurst"></div>
+  <div class="particles" id="particles"></div>
   <div class="celebration" id="celebration"></div>
   
   <div class="container">
@@ -461,7 +504,7 @@
       spinButton.textContent = 'Losuję...';
       
       let spins = 0;
-      let currentDelay = 500;
+      let currentDelay = 80;
       
       // Shuffle and repeat to fill spins
       const spinSequence = [
@@ -480,10 +523,10 @@
         spins++;
         
         if (spins < totalSpins) {
-          currentDelay += spins * 30;
+          currentDelay += spins * spins * 3;
           setTimeout(doSpin, currentDelay);
         } else {
-          setTimeout(revealGift, 500);
+          setTimeout(revealGift, 800);
         }
       }
       
@@ -510,6 +553,28 @@
     });
     
     spinButton.addEventListener('click', spin);
+    
+    // Create background particles
+    const particles = document.getElementById('particles');
+    
+    for (let i = 0; i < 15; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.animationDuration = (8 + Math.random() * 8) + 's';
+      petal.style.animationDelay = (Math.random() * 10) + 's';
+      particles.appendChild(petal);
+    }
+    
+    for (let i = 0; i < 25; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+      sparkle.style.animationDuration = (2 + Math.random() * 3) + 's';
+      sparkle.style.animationDelay = (Math.random() * 5) + 's';
+      particles.appendChild(sparkle);
+    }
   </script>
 </body>
 </html>
