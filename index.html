@@ -440,8 +440,8 @@
       spinButton.textContent = 'Losuję...';
       
       let spins = 0;
-      const totalSpins = 15;
-      let currentDelay = 250;
+      const totalSpins = 12;
+      let currentDelay = 400;
       
       function doSpin() {
         const randomGift = fakeGifts[Math.floor(Math.random() * fakeGifts.length)];
@@ -462,15 +462,18 @@
     }
     
     function revealGift() {
-      slotContainer.classList.add('legendary');
-      lightBurst.classList.add('active');
       slotWindow.innerHTML = `<div class="slot-item"><img src="${finalGift}" alt="gift"></div>`;
-      createConfetti();
+      
+      setTimeout(() => {
+        slotContainer.classList.add('legendary');
+        lightBurst.classList.add('active');
+        createConfetti();
+      }, 100);
       
       setTimeout(() => {
         preReveal.style.display = 'none';
         postReveal.classList.add('visible');
-      }, 2000);
+      }, 2500);
     }
     
     spinButton.addEventListener('click', spin);
