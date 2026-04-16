@@ -109,6 +109,16 @@
       object-fit: contain;
     }
     
+    .slot-item.reveal-item {
+      opacity: 0;
+      animation: revealFadeIn 1s ease-out forwards;
+    }
+    
+    @keyframes revealFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
     .spin-button {
       font-family: 'Cinzel', serif;
       font-size: 1em;
@@ -146,8 +156,9 @@
     }
     
     .slot-container.legendary {
-      animation: legendaryGlow 0.5s ease-in-out 3;
+      animation: legendaryGlow 0.6s ease-in-out 5;
       border-color: #ff9500;
+      opacity: 1;
     }
     
     @keyframes legendaryGlow {
@@ -169,11 +180,12 @@
     }
     
     .light-burst.active {
-      animation: burst 1s ease-out forwards;
+      animation: burst 0.4s ease-out forwards;
     }
     
     @keyframes burst {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      30% { opacity: 1; }
       100% { transform: translate(-50%, -50%) scale(150); opacity: 0; }
     }
     
@@ -462,18 +474,18 @@
     }
     
     function revealGift() {
-      slotWindow.innerHTML = `<div class="slot-item"><img src="${finalGift}" alt="gift"></div>`;
+      slotWindow.innerHTML = `<div class="slot-item reveal-item"><img src="${finalGift}" alt="gift"></div>`;
+      slotContainer.classList.add('legendary');
+      createConfetti();
       
       setTimeout(() => {
-        slotContainer.classList.add('legendary');
         lightBurst.classList.add('active');
-        createConfetti();
-      }, 100);
+      }, 500);
       
       setTimeout(() => {
         preReveal.style.display = 'none';
         postReveal.classList.add('visible');
-      }, 2500);
+      }, 3500);
     }
     
     spinButton.addEventListener('click', spin);
