@@ -111,11 +111,12 @@
     
     .slot-item.reveal-item {
       opacity: 0;
-      animation: revealFadeIn 3s ease-out forwards;
+      animation: revealFadeIn 5s ease-out forwards;
     }
     
     @keyframes revealFadeIn {
       0% { opacity: 0; }
+      90% { opacity: 0.7; }
       100% { opacity: 1; }
     }
     
@@ -156,7 +157,6 @@
     }
     
     .slot-container.legendary {
-      animation: legendaryGlow 1.5s ease-in-out 2;
       border-color: #ff9500;
       opacity: 1;
     }
@@ -422,7 +422,8 @@
     const fakeGifts = [
       'images/toilet-paper.jpg',
       'images/socks.jpg',
-      'images/toothbrush.jpg'
+      'images/toothbrush.jpg',
+      'images/warka.jpg'
     ];
     const finalGift = 'images/expedition33-icon.png';
     
