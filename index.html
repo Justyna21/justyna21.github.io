@@ -419,13 +419,20 @@
     const lightBurst = document.getElementById('lightBurst');
     const celebration = document.getElementById('celebration');
     
+    const rarityColors = {
+      common: '#888888',
+      rare: '#4a90d9',
+      epic: '#a855f7',
+      legendary: '#ff9500'
+    };
+    
     const fakeGifts = [
-      'images/toilet-paper.jpg',
-      'images/socks.jpg',
-      'images/toothbrush.jpg',
-      'images/warka.jpg'
+      { src: 'images/toilet-paper.jpg', rarity: 'common' },
+      { src: 'images/socks.jpg', rarity: 'common' },
+      { src: 'images/toothbrush.jpg', rarity: 'rare' },
+      { src: 'images/warka.jpg', rarity: 'epic' }
     ];
-    const finalGift = 'images/expedition33-icon.png';
+    const finalGift = { src: 'images/expedition33-icon.png', rarity: 'legendary' };
     
     let isSpinning = false;
     
@@ -459,7 +466,8 @@
       function doSpin() {
         const randomGift = fakeGifts[Math.floor(Math.random() * fakeGifts.length)];
         
-        slotWindow.innerHTML = `<div class="slot-item"><img src="${randomGift}" alt="gift"></div>`;
+        slotContainer.style.borderColor = rarityColors[randomGift.rarity];
+        slotWindow.innerHTML = `<div class="slot-item"><img src="${randomGift.src}" alt="gift"></div>`;
         
         spins++;
         
@@ -475,7 +483,8 @@
     }
     
     function revealGift() {
-      slotWindow.innerHTML = `<div class="slot-item reveal-item"><img src="${finalGift}" alt="gift"></div>`;
+      slotContainer.style.borderColor = rarityColors[finalGift.rarity];
+      slotWindow.innerHTML = `<div class="slot-item reveal-item"><img src="${finalGift.src}" alt="gift"></div>`;
       slotContainer.classList.add('legendary');
       createConfetti();
       
