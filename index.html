@@ -62,6 +62,7 @@
       position: relative;
       opacity: 0;
       animation: fadeIn 1s ease-out 1s forwards;
+      z-index: 110;
     }
     
     .slot-container::before,
@@ -439,8 +440,8 @@
       spinButton.textContent = 'Losuję...';
       
       let spins = 0;
-      const totalSpins = 20;
-      let currentDelay = 100;
+      const totalSpins = 15;
+      let currentDelay = 250;
       
       function doSpin() {
         const randomGift = fakeGifts[Math.floor(Math.random() * fakeGifts.length)];
