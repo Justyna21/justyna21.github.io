@@ -157,6 +157,7 @@
     }
     
     .slot-container.legendary {
+      animation: legendaryGlow 1.5s ease-in-out 3;
       border-color: #ff9500;
       opacity: 1;
     }
@@ -460,14 +461,18 @@
       spinButton.textContent = 'Losuję...';
       
       let spins = 0;
-      const totalSpins = 12;
-      let currentDelay = 400;
+      let currentDelay = 500;
+      
+      // Shuffle and repeat to fill spins
+      const shuffled = [...fakeGifts].sort(() => Math.random() - 0.5);
+      const spinSequence = [...shuffled, ...shuffled.sort(() => Math.random() - 0.5)];
+      const totalSpins = spinSequence.length;
       
       function doSpin() {
-        const randomGift = fakeGifts[Math.floor(Math.random() * fakeGifts.length)];
+        const currentGift = spinSequence[spins];
         
-        slotContainer.style.borderColor = rarityColors[randomGift.rarity];
-        slotWindow.innerHTML = `<div class="slot-item"><img src="${randomGift.src}" alt="gift"></div>`;
+        slotContainer.style.borderColor = rarityColors[currentGift.rarity];
+        slotWindow.innerHTML = `<div class="slot-item"><img src="${currentGift.src}" alt="gift"></div>`;
         
         spins++;
         
@@ -489,14 +494,17 @@
       createConfetti();
       
       setTimeout(() => {
-        lightBurst.classList.add('active');
-      }, 500);
-      
-      setTimeout(() => {
         preReveal.style.display = 'none';
         postReveal.classList.add('visible');
       }, 3500);
     }
+    
+    // Preload all images
+    const allImages = [...fakeGifts.map(g => g.src), finalGift.src];
+    allImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
     
     spinButton.addEventListener('click', spin);
   </script>
