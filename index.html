@@ -464,8 +464,11 @@
       let currentDelay = 500;
       
       // Shuffle and repeat to fill spins
-      const shuffled = [...fakeGifts].sort(() => Math.random() - 0.5);
-      const spinSequence = [...shuffled, ...shuffled.sort(() => Math.random() - 0.5)];
+      const spinSequence = [
+        ...[...fakeGifts].sort(() => Math.random() - 0.5),
+        ...[...fakeGifts].sort(() => Math.random() - 0.5),
+        ...[...fakeGifts].sort(() => Math.random() - 0.5)
+      ];
       const totalSpins = spinSequence.length;
       
       function doSpin() {
@@ -477,10 +480,10 @@
         spins++;
         
         if (spins < totalSpins) {
-          currentDelay += spins * 4;
+          currentDelay += spins * 30;
           setTimeout(doSpin, currentDelay);
         } else {
-          setTimeout(revealGift, 300);
+          setTimeout(revealGift, 500);
         }
       }
       
