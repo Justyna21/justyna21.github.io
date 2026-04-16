@@ -462,17 +462,14 @@
     
     function revealGift() {
       slotContainer.classList.add('legendary');
+      lightBurst.classList.add('active');
       slotWindow.innerHTML = `<div class="slot-item"><img src="${finalGift}" alt="gift"></div>`;
-      
-      setTimeout(() => {
-        lightBurst.classList.add('active');
-        createConfetti();
-      }, 1500);
+      createConfetti();
       
       setTimeout(() => {
         preReveal.style.display = 'none';
         postReveal.classList.add('visible');
-      }, 2500);
+      }, 2000);
     }
     
     spinButton.addEventListener('click', spin);
