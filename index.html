@@ -443,9 +443,7 @@
       let currentDelay = 100;
       
       function doSpin() {
-        const randomGift = spins < totalSpins - 1 
-          ? fakeGifts[Math.floor(Math.random() * fakeGifts.length)]
-          : finalGift;
+        const randomGift = fakeGifts[Math.floor(Math.random() * fakeGifts.length)];
         
         slotWindow.innerHTML = `<div class="slot-item"><img src="${randomGift}" alt="gift"></div>`;
         
@@ -455,7 +453,7 @@
           currentDelay += spins * 4;
           setTimeout(doSpin, currentDelay);
         } else {
-          setTimeout(revealGift, 500);
+          setTimeout(revealGift, 300);
         }
       }
       
@@ -464,16 +462,17 @@
     
     function revealGift() {
       slotContainer.classList.add('legendary');
+      slotWindow.innerHTML = `<div class="slot-item"><img src="${finalGift}" alt="gift"></div>`;
       
       setTimeout(() => {
         lightBurst.classList.add('active');
         createConfetti();
-      }, 1000);
+      }, 1500);
       
       setTimeout(() => {
         preReveal.style.display = 'none';
         postReveal.classList.add('visible');
-      }, 1800);
+      }, 2500);
     }
     
     spinButton.addEventListener('click', spin);
